@@ -1,14 +1,32 @@
 import setUpRoutes from "@config/router";
 import express from "express";
+import * as cors from 'cors';
 import mongoose, { Mongoose } from "mongoose";
 
 import { environment } from "./config/environment";
 
 const uri = process.env.MONGO_URL;
 
+//options for cors midddleware
+const options: cors.CorsOptions = {
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'X-Access-Token',
+  ],
+  credentials: true,
+  methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+  origin: '*',
+  preflightContinue: false,
+};
+
 async function start() {
   try {
     const app = express();
+
+    app.use(cors.default(options));
 
     setUpRoutes(app);
 
