@@ -1,8 +1,11 @@
 import { Nif } from "src/entities/Nif";
+import { IGetNifResultUseCase } from "./IGetNifResultUseCase";
+import { INif } from "src/services/INif";
 
-import { consultarNif } from "src/services/implementations/Nif";
 
-export async function getNifData(nif: string): Promise<Nif> {
-    
-  return await consultarNif(nif);
+export default class GetNifResultUseCase implements IGetNifResultUseCase{
+  constructor(private nifService : INif){}
+  async execute(nif: string): Promise<Nif>{
+    return await this.nifService.consultarNif(nif)
+  };
 }

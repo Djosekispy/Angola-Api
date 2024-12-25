@@ -3,7 +3,9 @@ import { INif } from "../INif";
 import puppeteer from 'puppeteer';
 
 
-export async function consultarNif(nif: string): Promise<Nif> {
+export default class NifService implements INif{
+
+async  consultarNif(nif: string): Promise<Nif> {
   const browser = await puppeteer.launch({ headless: true, args: ['--disable-dev-shm-usage', '--no-sandbox'], });
   const page = await browser.newPage();
   await page.setRequestInterception(true);
@@ -24,7 +26,7 @@ try {
   await page.waitForSelector('input[id="j_id_2x:txtNIFNumber"]');
   await page.type('input[id="j_id_2x:txtNIFNumber"]', nif);
   await page.click('button[id="j_id_2x:j_id_34"]');
-  await page.waitForSelector('div.panel-default-header');
+  await page.waitForSelector('div.panel-default-header', { timeout: 10000 }); 
   const resultado = await page.evaluate(() => {
       const getText = (labelSelector: string): string => {
         const labelElement = document.querySelector(labelSelector);
@@ -46,7 +48,7 @@ try {
 
   return resultado as Nif;
 } catch (error) {
-  console.error('Erro ao consultar o NIF:', error);
-  throw new Error('Erro ao consultar o NIF.');
+  throw new Error('NIF inválido');
+}
 }
 }
