@@ -1,4 +1,4 @@
-# API - Validação de NIF
+# Validação de NIF
 
 ## Funcionalidade Adicionada: Validação de NIF
 Foi adicionada a funcionalidade de validação de NIF na API, permitindo consultar e verificar os dados de contribuintes registrados no portal tributário. Essa funcionalidade torna o sistema mais eficiente e seguro, possibilitando a validação automática de NIFs e a prevenção de erros manuais ou inconsistências nos registros.
@@ -26,12 +26,12 @@ Essa rota permite validar um NIF específico consultando os dados diretamente no
 **Exemplo de Resposta:**
 ```json
 {
-  "nif": "0123456789",
+  "nif": "003519344HA042",
   "nome": "João Silva",
-  "tipo": "Pessoa Singular",
-  "estado": "Ativo",
-  "regimeIva": "Regime Normal",
-  "residenciaFiscal": "Luanda"
+  "tipo": "SINGULAR",
+  "estado": "Activo",
+  "regimeIva": "Sem actividade em IVA (Não factura IVA)",
+  "residenciaFiscal": "Residente Fiscal"
 }
 ```
 Essa resposta retorna as informações associadas ao NIF validado.
